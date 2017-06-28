@@ -1,0 +1,30 @@
+<div ng-controller="dbkindCtrl">
+	<h1>第{{pageCode+1}}页</h1>
+	查询：<input type="text" ng-model="searchText" />
+	<table class="table table-hover table-bordered" >
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>书名</th>
+				<th>图片</th>
+				<th>作者</th>
+				<th>字数<button ng-click="baixus()">升序</button><button ng-click="baixuj()">降序</button></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat = "item in movielist|limitTo:20:pageCode*20|filter:{'title':searchText}|orderBy:'words':active">
+				<td>{{$index+1+pageCode*20}}</td>
+				<td>{{item.title}}</td>
+				<td><img ng-src="{{item.cover}}" style="width: 20px;height: 20px;"/></td>
+				<td >{{item.author}}</td>
+				<td><span >{{item.words}}字</span></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="text-right">
+		<button ng-click="changepage(1)">首页</button>
+      <button ng-repeat="item in pagelist" ng-click="changepage(item)">第{{item+1}}页</button>
+      <button ng-click="changepage(10)">尾页</button>
+	</div>
+	  
+</div>
