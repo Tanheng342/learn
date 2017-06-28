@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<v-header></v-header>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * 组件
+		 * 		1、定义组件-----组件名称首字母大写
+		 * 			Vue.extend
+		 * 			template
+		 * 		2、注册组件 ----- 组件使用的名字，用的哪一个组件
+		 * 			Vue.component('v-header',Header);
+		 * 		3、使用组件  ----- 采用标签形式
+		 * 			<v-header></v-header>
+		 */
+		//1、定义组件
+		var Header = Vue.extend({
+			template:"<header>这里是头部</header>"
+		})
+		//2、注册组件
+		Vue.component("v-header",Header);
+		var  vw = new Vue({
+			el:"#app",
+			data:{
+				
+			},
+			computed:{
+				
+			},
+			methods:{
+				
+			}
+		})
+	</script>
+</html>

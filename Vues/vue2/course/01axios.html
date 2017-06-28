@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="getData()">获取数据</button>
+		</div>
+	</body>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+//		var url = "http://localhost:8000/";
+//		var url = "http://datainfo.duapp.com/shopdata/getclass.php";
+		var url = "http://datainfo.duapp.com/shopdata/getGoods.php?callback="
+		/**
+		 * 如果你的接口的数据格式为jsonp,不建议使用它
+		 * 
+		 * 如果你想使用模块化
+		 *  cnpm i axios --save-dev
+		 * 	var axios = require("axios");
+		 * 	import axios from "axios";
+		 * 
+		 * cdn
+		 * <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		 */
+		var  vw = new Vue({
+			el:"#app",
+			data:{
+				
+			},
+			computed:{
+				
+			},
+			methods:{
+				getData(){
+					axios.get(url).then((responseText) => {
+						//获取到的数据一般都在responseText.data中
+						console.log(responseText)
+					}).catch((err) => {
+						console.log(err);
+					})
+				}
+			}
+		})
+	</script>
+</html>

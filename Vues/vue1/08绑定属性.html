@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<span v-bind:data="msg">我需要绑定属性</span>
+			<br />
+			<span :data="msg2">我需要绑定属性</span>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * v-bind:属性名称="属性值"
+		 * 	:属性名称="属性值"
+	
+		 */
+		new Vue({
+			el:"#app",
+			data:{
+				msg:"绑定的属性",
+				msg2:"简写绑定属性"
+			}
+		})
+	</script>
+</html>

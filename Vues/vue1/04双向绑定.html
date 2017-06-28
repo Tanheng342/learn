@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="pc">1111111111</div>
+		
+		<div id="app">
+			<input type="text" v-model="msg" />
+			{{msg}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * 数据双向绑定：
+		 * 		初始化会显示默认的数据，然后由于某一个操作或者行为，改变了数据，视图也跟着改变
+		 * 		v-model     ------    ng-model
+		 * 		v-model所对应的msg就是初始化的数据
+		 */
+		new Vue({
+			el:"#app",
+			data:{
+				msg:"数据双向绑定"
+			}
+		})
+	</script>
+</html>

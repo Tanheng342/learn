@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model="searchText" />
+			<button @click="getData()">获取数据</button>
+			<ul>
+				<li v-for="item in list">
+					{{item}}
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+	<script type="text/javascript">
+//		var url = "http://localhost:8000/";
+//		var url = "http://datainfo.duapp.com/shopdata/getclass.php";
+		var url = "http://datainfo.duapp.com/shopdata/getGoods.php";
+		
+		var url1 = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="
+//			url + "?callback=";
+//			url + "?cb="
+		/**
+		 * vue-resource，数据存放在responseText.body
+		 * 
+		 * 提供jsonp格式的请求
+		 * 
+		 * 如果格式不是callback ,那么url那一项再添加一个参数
+		 * 		（url,{jsonp:"cb"}）
+		 */
+		var  vw = new Vue({
+			el:"#app",
+			data:{
+				searchText:"",
+				list:[],
+				searchUrl:""
+				
+			},
+//			computed:{
+//				newList:function(){
+//					var arr = [];
+//					var url1="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+this.searchText;
+//					this.$http.jsonp(url1,{
+//						jsonp:"cb"
+//					}).then((responseText)=>{
+//						console.log(responseText.body.s);
+//						arr=responseText.body.s;
+//						console.log(arr)
+//						
+//					},(err)=>{
+//						console.log(err);
+//					})
+//					return arr;
+//					
+//				}
+//			},
+			methods:{
+				getData(){
+//					this.$http.get(url).then((responseText)=>{
+//						console.log(responseText.body)
+//					},(err)=>{
+//						console.log(err)
+//					})
+//					this.$http.jsonp(url).then((responseText)=>{
+//						console.log(responseText.body)
+//					},(err)=>{
+//						console.log(err)
+//					})
+					var url1="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+this.searchText;
+					this.$http.jsonp(url1,{
+						jsonp:"cb"
+					}).then((responseText)=>{
+						console.log(responseText.body.s);
+						this.list = responseText.body.s;
+					},(err)=>{
+						console.log(err)
+					})
+				}
+			},
+			watch:{
+				searchText:function(newVal){
+					var url1="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+newVal;
+					this.$http.jsonp(url1,{
+						jsonp:"cb"
+					}).then((responseText)=>{
+						console.log(responseText.body.s);
+						this.list = responseText.body.s;
+					},(err)=>{
+						console.log(err)
+					})
+				}
+			}
+			
+		})
+	</script>
+</html>

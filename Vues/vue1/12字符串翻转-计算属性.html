@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<button @click="reverseMsg()">翻转</button>
+			{{msg}}----{{newMsg}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * 计算属性   DOM结构加载完毕就会计算，不需要主动去触发，但是方法methods里的函数必须主动触发
+		 * 	computed --- Vue对象的一个选项
+		 * 		内部新属性的书写方式
+		 * 			newMsg:function(){return ***}
+		 * 
+		 * 		html代码中使用   {{newMsg}}
+		 */
+		new Vue({
+			el:"#app",
+			data:{
+				num:"10000",
+				msg:"字符串翻转"
+			},
+			methods:{
+				reverseMsg(){
+					this.msg = this.msg.split("").reverse().join("");
+				}
+			},
+			computed:{
+				newMsg:function(){
+					return this.msg.split("").reverse().join("");
+				}
+			}
+		})
+	</script>
+</html>

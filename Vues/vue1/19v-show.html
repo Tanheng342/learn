@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<style type="text/css">
+			.box{
+				width: 100px;
+				height: 100px;
+			}
+			.class-a{
+				background-color: #f66;
+			}
+			.class-b{
+				background-color: #00f;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="pc">1111111111</div>
+		
+		<div id="app">
+			<!--<div v-show="isShow">正在加载</div>
+			<ul v-show="!isShow">
+				<li>11111111111</li>
+			</ul>-->
+			
+			<div v-if="isShow">正在加载</div>
+			<ul v-else>
+				<li>11111111111</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * 
+		 * v-if   v-else
+		 * 
+		 * v-show
+		 * 
+		 */
+		new Vue({
+			el:"#app",
+			data:{
+				isShow:true
+			},
+			methods:{
+				changeColor(){
+					this.isTrue = !this.isTrue;
+				}
+			}
+		})
+	</script>
+</html>

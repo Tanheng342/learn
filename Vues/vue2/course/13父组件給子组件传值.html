@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<v-header></v-header>
+		</div>
+	</body>
+	<template id="header">
+		<header>
+			这里是头部{{msg}}
+			<button id="btn">原生组件点击测试</button>
+			<button @click='test()'>组件点击测试</button>
+			<v-nav :msg="msg"></v-nav>
+		</header>
+	</template>
+	<template id="nav">
+		<div>我是NAV组件--------------{{msg}}</div>
+	</template>
+	<script type="text/javascript">
+		/**
+		 * 组件
+		 * 	 自定义组件初始化格式----必须使用一个方法，并且返回一个对象，在对象内部定义初始化数据
+		 * 		data:function(){
+					return {
+						msg:"1111"
+					}
+				}
+			方法:跟以前一样
+		 **/
+		//1、定义组件 ----- 最常用的方式
+		
+		var Header = {
+			template:"#header",
+			data:function(){
+				return {
+					msg:"我是父组件中的msg"
+				}
+			},
+			mounted(){
+				document.getElementById("btn").onclick = function(){
+					alert("22222")
+				}
+			},
+			methods:{
+				test(){
+					this.msg =　"５５５５";
+				}
+			},
+			components:{
+				"v-nav":{//定义注册一起操作
+					props:["msg"],
+					template:"#nav",
+				}
+			}
+		};
+		var  vw = new Vue({
+			el:"#app",
+			data:{
+				msg:"组件"
+			},
+			//2、注册组件-----最常用方式
+			components:{
+				"v-header":Header,
+			}
+		})
+	</script>
+</html>

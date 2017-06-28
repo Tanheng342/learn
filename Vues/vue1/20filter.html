@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<ul>
+				<li v-for="user in users">
+					{{user.name}}-----{{user.age | ageFilter}}------{{user.sex | sexFilter}}
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * filter   ---   一定要在实例化之前，并且一定要有返回值，使用时通过
+		 * 	{{ age | ageFilter}}
+		 * 
+		 * 1表示男，0表示女
+		 */
+		Vue.filter("ageFilter",function(val){
+			return val + "岁";
+		})
+		Vue.filter("sexFilter",function(val){
+			if(val == 0){
+				return "女";
+			}else{
+				return "男";
+			}
+			
+		})
+		
+		new Vue({
+			el:"#app",
+			data:{
+				users:[{
+					name:"bwz",
+					age:38,
+					sex:1
+				},{
+					name:"zhl",
+					age:88,
+					sex:0
+				},{
+					name:"lj",
+					age:2,
+					sex:1
+				}]
+			},
+			methods:{
+				changeColor(){
+					this.isTrue = !this.isTrue;
+				}
+			}
+		})
+	</script>
+</html>

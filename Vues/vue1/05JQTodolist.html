@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+		<style type="text/css">
+			.container{
+				width: 1000px;
+				min-height: 500px;
+				box-shadow: 0 0 10px #f66;
+				margin: 50px auto;
+				padding: 50px 10px;
+			}
+			.table{
+				margin-top: 50px;
+			}
+			#count{
+				font-size: 24px;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<form class="form-inline">
+			  <div class="form-group">
+			    <label for="userID">用户名</label>
+			    <input type="text" class="form-control" id="userID" placeholder="用户名">
+			  </div>
+			  <div class="form-group">
+			    <label for="password">密码</label>
+			    <input type="password" class="form-control" id="password" placeholder="密码">
+			  </div>
+			  <button type="button" class="btn btn-primary" id="saveBtn">添加用户</button>
+			  共有<span class="text-danger " id="count">1</span>条记录
+			</form>
+			<table class="table table-bordered">
+		      <thead>
+		        <tr >
+		          <th class="text-center">#</th>
+		          <th class="text-center">用户名</th>
+		          <th class="text-center">密码</th>
+		          <th class="text-center">操作</th>
+		        </tr>
+		      </thead>
+		      <tbody id="tb">
+		       
+		      </tbody>
+		    </table>
+			
+		</div>
+		
+	</body>
+	<script src="jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var userArr = [];//这个值可以是从服务器获取出来的值，或者从本地中获取到的值
+		var defaultLen = userArr.length;
+		$("#count").html(defaultLen)
+		$("#saveBtn").on("click",function(){
+			var userID = $("#userID").val();
+			var password = $("#password").val();
+			var obj = {
+				userID:userID,
+				password:password
+			}
+			userArr.push(obj);
+			showUsers(userArr);
+		});
+		
+		function showUsers(userArr){
+			var len = userArr.length;
+			$("#count").html(len)
+			$("#tb").html("");
+			for(var i in userArr){
+				$("#tb").append(' <tr>'+
+		          '<th class="text-center">'+(i*1+1)+'</th>'+
+		          '<td class="text-center">'+userArr[i].userID+'</td>'+
+		          '<td class="text-center">'+userArr[i].password+'</td>'+
+		          '<td class="text-center"><button class="btn btn-xs btn-danger deleteItem" onclick="deleteItem('+i+')">删除</button></td>'+
+		        '</tr>')
+			}
+		}
+		
+		function deleteItem(index){
+			console.log(index);
+			userArr.splice(index,1);
+			showUsers(userArr);
+		}
+	</script>
+</html>

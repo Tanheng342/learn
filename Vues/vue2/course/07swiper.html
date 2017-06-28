@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="swiper/css/swiper-3.4.1.min.css"/>
+		<style type="text/css">
+			.swiper-container{
+				width: 100%;
+				height: 200px;
+				border-bottom: 1px solid #f66;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button id="btn">原生的事件</button>
+			<button @click="test()">vue的事件</button>
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" v-for="item in list"><img :src="item"/></div>
+					<!--<div class="swiper-slide">22222</div>
+					<div class="swiper-slide">33333</div>-->
+				</div>
+				 <div class="swiper-pagination"></div>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+	<script src="swiper/js/swiper-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		var  vw = new Vue({
+			el:"#app",
+			data:{
+				msg:"初始化",
+				list:[]
+			},
+			methods:{
+				test(){
+					alert("111111111")
+				}
+			},
+			mounted(){
+				console.log("mounted");
+				var that = this;
+				document.getElementById("btn").onclick = function(){
+					alert("22222")
+					that.test();
+				}
+				
+				
+				var url = "http://datainfo.duapp.com/shopdata/getBanner.php";
+//				var url = "http://localhost:8000/";
+				var arr = [];
+				this.$http.jsonp(url).then((responseText)=>{
+//					console.log(responseText.body);
+					var data = responseText.body;
+					for(var item of data){
+						console.log(JSON.parse(item.goodsBenUrl)[0])
+						arr.push(JSON.parse(item.goodsBenUrl)[0]);
+					}
+					this.list = arr;
+				},(err) => {
+					console.log(err)
+				})
+			},
+			updated(){
+				var swiper = new Swiper(".swiper-container",{ pagination: '.swiper-pagination'})
+				console.log("updated")
+			}
+		})
+	</script>
+</html>

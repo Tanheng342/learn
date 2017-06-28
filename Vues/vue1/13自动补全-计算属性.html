@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<input type="text" v-model="searchTxt" />
+			<ul>
+				<li v-for="item in list">{{item}}</li>
+			</ul>
+			<hr/>
+			<ul>
+				<li v-for="item in newList">{{item}}</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * 计算属性   DOM结构加载完毕就会计算，不需要主动去触发，但是方法methods里的函数必须主动触发
+		 * 	computed --- Vue对象的一个选项
+		 * 		内部新属性的书写方式
+		 * 			newMsg:function(){return ***}
+		 * 
+		 * 		html代码中使用   {{newMsg}}
+		 */
+		new Vue({
+			el:"#app",
+			data:{
+				searchTxt:"",
+				list:["apple","pear","orange","banana","watermelon","lemon","小王","小王八蛋","大王","王炸","王后"]
+			},
+			computed:{
+				newList:function(){
+					//过滤数据
+					var arr = [];//最终的数据，返回即可
+//					var val = this.searchTxt;
+					//forEach  this 指向问题
+					var that = this;
+					this.list.forEach(function(itemVal){
+						//判断输入的字符是否符合条件，符合条件就将它push到一个新的数组
+						if(itemVal.indexOf(that.searchTxt) != -1){
+							arr.push(itemVal)
+						}
+					})
+					return arr;
+				}
+			}
+		})
+	</script>
+</html>

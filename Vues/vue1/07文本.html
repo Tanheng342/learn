@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			{{msg1}}---------------<span v-text="msg1"></span>
+			<br />
+			{{msg2}}---------------<span v-html="msg2"></span>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * 需要一个固有的html标签做载体，然后添加进去
+		 * 	v-text   不会解析html标签
+		 *  v-html   解析html标签
+		 */
+		new Vue({
+			el:"#app",
+			data:{
+				msg1:"文本属性",
+				msg2:"<h1>带标签的文本</h1>"
+			}
+		})
+	</script>
+</html>

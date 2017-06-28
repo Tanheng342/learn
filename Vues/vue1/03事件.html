@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="pc">1111111111</div>
+		
+		<div id="app">
+			{{msg}}
+			<button v-on:click="changeMsg()">点击事件</button>
+			<button @click="changeMsgBack()">返回</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * 所有的事件，都必须写在methods选项中，它是Vue实例的一个选项
+		 * 添加事件过程
+		 * 		第一步、給需要添加事件的元素，添加一个指令  v-on:EventName = "EventHandler()";
+		 * 		第二步，实例化Vue的时候，将EventHandler()包含在methods中
+		 * 		可以通过this.msg获取初始化的数据，或者更改初始化数据
+		 * 	
+		 * 		数据改变，视图也会跟着改变
+		 * 
+		 * 		注意：事件指令可以采用简写形式   @click    其中@代表的意思和v-on:一致
+		 */
+		new Vue({
+			el:"#app",
+			data:{
+				msg:"点击事件前的数据"
+			},
+			//此处用于存放事件
+			methods:{
+				changeMsg(){
+					//更改初始值，数据改变，引起视图的二次渲染
+					this.msg = "点击事件后的数据";
+				},
+				changeMsgBack(){
+					this.msg = "点击事件前的数据";
+				}
+			}
+		})
+	</script>
+</html>

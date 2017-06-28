@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="pc">1111111111</div>
+		
+		<div id="app">
+			<header>{{headerMsg}}</header>
+			<div id="content">{{contentMsg}}</div>
+			<footer>{{footerMg}}</footer>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * 必须引入vue.js，但不一定是script方式引入
+		 * 必须new Vue()实例
+		 * 	el:就是绑定一个作用域，和html结构代码有关，只有在此html结构代码内部，所设置的一些属性，方法等才有效
+		 *  data:初始化的数据，类似于react中的this.state={}
+		 * 		访问data中的数据，直接通过this.headerMsg
+		 */
+		new Vue({
+			el:"#app",
+			data:{
+				headerMsg:"这里是头部",
+				contentMsg:"这里是内容",
+				footerMg:"这里是底部"
+			}
+		})
+	</script>
+</html>

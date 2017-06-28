@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<button @click="reverseMsg()">翻转</button>
+			{{msg}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * 表达式
+		 */
+		new Vue({
+			el:"#app",
+			data:{
+				num:"10000",
+				msg:"字符串翻转"
+			},
+			methods:{
+				reverseMsg(){
+					this.msg = this.msg.split("").reverse().join("");
+				}
+			}
+		})
+	</script>
+</html>

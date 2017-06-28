@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+		<style type="text/css">
+			.container{
+				width: 1000px;
+				min-height: 500px;
+				box-shadow: 0 0 10px #f66;
+				margin: 50px auto;
+				padding: 50px 10px;
+			}
+			.table{
+				margin-top: 50px;
+			}
+			#count{
+				font-size: 24px;
+				font-weight: bold;
+			}
+		</style>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div class="container" id="app">
+			<form class="form-inline">
+			  <div class="form-group">
+			    <label for="userID">用户名</label>
+			    <input type="text" class="form-control" id="userID" v-model="userID" placeholder="用户名">
+			  </div>
+			  <div class="form-group">
+			    <label for="password">密码</label>
+			    <input type="password" class="form-control" id="password"  v-model="password"  placeholder="密码">
+			  </div>
+			  <button type="button" class="btn btn-primary" @click="addUser()">添加用户</button>
+			  共有<span class="text-danger " id="count">{{len}}</span>条记录
+			</form>
+			<table class="table table-bordered">
+		      <thead>
+		        <tr >
+		          <th class="text-center">#</th>
+		          <th class="text-center">用户名</th>
+		          <th class="text-center">密码</th>
+		          <th class="text-center">操作</th>
+		        </tr>
+		      </thead>
+		      <tbody id="tb">
+		       <tr v-for="(item,index) in usersArr">
+		          <th scope="row">{{index*1+1}}</th>
+		          <td>{{item.userID}}</td>
+		          <td>{{item.password}}</td>
+		          <td><button class="btn btn-xs btn-danger" @click="deleteItem(index)">删除</button></td>
+		        </tr>
+		      </tbody>
+		    </table>
+			<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+		</div>
+		
+	</body>
+	<script src="jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:"#app",
+			data:{
+				userID:"",
+				password:"",
+				usersArr:[],
+				len:0
+			},
+			methods:{
+				addUser(){
+					var userID = this.userID;//this.userID跟V-MODEL是一致的
+					var password = this.password;
+					var obj = {
+						userID:userID,
+						password:password
+					}
+					this.usersArr.push(obj);
+					this.len = this.usersArr.length;
+				},
+				deleteItem(index){
+					var that = this;
+					console.log(index);
+					var a=confirm("确定要删除吗？");
+					 if(a==true){
+						that.usersArr.splice(index,1);
+						that.len = that.usersArr.length;
+					 }
+					
+					
+				}
+			}
+		})
+	</script>
+</html>

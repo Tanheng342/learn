@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			班级：{{classId}}
+			课程：{{course}}
+			<button haha="哈哈" data-classId="1701" data-course="vue" @click="getInfo($event)">获取信息</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * <button haha="哈哈" data-id="1701" data-course="vue" @click="getInfo($event)">获取信息</button>
+		 * 
+		 * 	事件对象，$event
+		 * 	自定义属性  data-属性名="属性值"
+		 * 			event.srcElement.dataset.属性名-----会将原来的data-属性名中的大写改为小写
+		 * 
+		 *  js原生通过事件对象获取属性的方式依然有效
+		 * 		console.log(event.target.getAttribute("haha"))
+		 */
+		new Vue({
+			el:"#app",
+			data:{
+				classId:000,
+				course:"html"
+			},
+			methods:{
+				getInfo(event){
+					console.log(event.target.getAttribute("haha"))
+					var obj = event.srcElement.dataset;
+					console.log(obj)
+					this.classId = obj.classid;
+					this.course = obj.course;
+				}
+			}
+		})
+	</script>
+</html>

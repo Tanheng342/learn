@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="checkbox" v-model="flag" />
+			<div class="box" v-show="flag">checkbox显示</div>
+			
+			<select v-model="selected">
+				<option value="0">11111</option>
+				<option value="1">22222</option>
+				<option value="2">3333</option>
+				
+			</select>
+			{{selected}}
+			
+			<p v-for="opt in options">
+				<input type="radio" :value="opt.text" name="myRadio" v-model="sle"/>{{opt.value}}
+			</p>
+			{{sle}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		var  vw = new Vue({
+			el:"#app",
+			data:{
+				flag:true,
+				selected:2,
+				sle:"",
+				options: [
+		            { text: 'One', value: 'A' },
+		            { text: 'Two', value: 'B' },
+		            { text: 'Three', value: 'C' }
+		        ]
+			},
+			computed:{
+				
+			},
+			methods:{
+				
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<style type="text/css">
+			.box{
+				width: 100px;
+				height: 100px;
+			}
+			.class-a{
+				background-color: #f66;
+			}
+			.class-b{
+				background-color: #00f;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="pc">1111111111</div>
+		
+		<div id="app">
+			<button @click="changeColor()">改变颜色</button>
+			<div class="box" v-bind:class="{'class-a':false,'class-b':true}"></div>
+			<br /><br />
+			<div class="box" v-bind:class="{'class-a':isTrue,'class-b':!isTrue}"></div>
+			<br /><br />
+			<div class="box" v-bind:class="obj"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * class style  style数组-----对象
+		 */
+//		var obj = {'class-a':isTrue,'class-b':!isTrue}
+		new Vue({
+			el:"#app",
+			data:{
+				isTrue:false,
+				obj:{
+					'class-a':true,
+					'class-b':false
+				}
+			},
+			methods:{
+				changeColor(){
+					this.isTrue = !this.isTrue;
+				}
+			}
+		})
+	</script>
+</html>

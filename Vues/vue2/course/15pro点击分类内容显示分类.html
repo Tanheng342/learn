@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			*{padding: 0;margin: 0;list-style: none;}
+			html,body{
+				width: 100%;height: 100%;
+			}
+			#app{
+				width: 100%;height: 100%;display: flex;flex-direction: column;
+			}
+			header{
+				height: 44px;
+				background-color: #f66;
+			}
+			.content{
+				flex: 1;
+			}
+			footer{
+				height: 50px;
+				background-color: #ccc;
+			}
+			.navList{
+				height: 40px;
+				overflow-x:auto;
+				box-shadow: 0 1px 1px #000;
+			}
+			.navList::-webkit-scrollbar {
+			    display: none;
+			}
+			.navList li{
+				display: inline;
+				white-space: nowrap;
+				padding: 0 10px;
+				text-align: center;
+				line-height: 40px;
+			}
+			.navList li.active{
+				color: #f66;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<v-header></v-header>
+			<v-content></v-content>
+			<v-footer></v-footer>
+		</div>
+	</body>
+	<template id="header">
+		<header>头</header>
+	</template>
+	<template id="content">
+		<div class="content">
+			<v-nav :kindlist="list" test="111111" @toparent="getChildData"></v-nav>
+			肚----{{className}}
+		</div>
+	</template>
+	<template id="footer">
+		<footer>尾</footer>
+	</template>
+	<template id="nav">
+		<ul class="navList">
+			<li v-for="(item,index) in kindlist" :data-classid="item.classID" :data-classname="item.className" :class="activeIndex == index ?'active ': ''" @click="changeIndex($event,index)">{{item.className}}</li>
+			<!--<li @click="changeIndex(1)">电影</li>
+			<li @click="changeIndex(2)">真人秀</li>
+			<li @click="changeIndex(3)">综艺</li>-->
+		</ul>
+	</template>
+	<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+	<script type="text/javascript">
+		/**
+		 * 59行@to-parent="getChildData"用来接收子组件传递的值
+		 * to-parent之间名称可以自己随意定义，只要你决的有意义即可
+		 */
+		var Header = {
+					template:"#header"
+				}
+		
+		var  vw = new Vue({
+			el:"#app",
+			data:{
+				
+			},
+			components:{
+				"v-header":Header,
+				"v-content":{
+					template:"#content",
+					data:function(){
+						return {
+							list:[],
+							className:""
+						}
+					},
+					methods:{
+						//用来接收子组件的数据，触发条件在子组件，子组件通过 $emit("to-parent",val);
+						getChildData(data){
+							this.className = data.classname;
+						}
+					},
+					components:{
+						"v-nav":{
+							props:["kindlist","test"],//直接使用kindlist就代表直接访问了父组件中的list
+							template:"#nav",
+							data:function(){
+								return {
+									defaultlist:["电视剧","电影","真人秀","综艺","电视剧","电影","真人秀","综艺","电视剧","电影","真人秀","综艺"],
+									activeIndex:0,
+									className:""//表示你点击的选项的分类名称
+								}
+							},
+							mounted(){
+								this.$emit("toparent",{classname:"衬衫"});
+							},
+							methods:{
+								changeIndex(event,id){
+									console.log(event.srcElement.dataset)//classid和className的对象
+									//className用来显示你点击的是哪一个，传递给父组件v-content,并且展示出来
+									//classid后期v-content请求相关数据必须的一个参数
+									this.activeIndex = id;
+									var data = event.srcElement.dataset;
+									//給父组件发送数据
+									this.$emit("toparent",data);
+								}
+							}
+						}
+					},
+					mounted(){
+						//此处获取到分类,传递给子组件
+						var that = this;
+						var url = "http://datainfo.duapp.com/shopdata/getclass.php";
+						this.$http.get(url).then((responseText) => {
+							var data = JSON.parse(responseText.body);
+							console.log(data)
+							that.list = data;
+						},(err) => {
+							console.log(err)
+						})
+					}
+				},
+				"v-footer":{
+					template:"#footer"
+				}
+			}
+			
+		})
+	</script>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<v-header></v-header>
+			<v-footer></v-footer>
+		</div>
+	</body>
+	<script type="x-template" id="header">
+		<header>
+			这里是头部{{msg}}
+			<button @click='test()'>组件点击测试</button>
+		</header>
+	</script>
+	<script type="text/javascript">
+		/**
+		 * 组件
+		 * 	 自定义组件初始化格式----必须使用一个方法，并且返回一个对象，在对象内部定义初始化数据
+		 * 		data:function(){
+					return {
+						msg:"1111"
+					}
+				}
+				
+			方法:跟以前一样
+		 **/
+		//1、定义组件 ----- 最常用的方式
+		var Header = {
+			template:"#header",
+			data:function(){
+				return {
+					msg:"1111"
+				}
+			},
+			methods:{
+				test(){
+					alert("33333")
+				}
+			}
+		};
+		var  vw = new Vue({
+			el:"#app",
+			data:{
+				msg:"组件"
+			},
+			//2、注册组件-----最常用方式
+			components:{
+				"v-header":Header,
+				"v-footer":{
+					template:"<footer>这里是底部</footer>"
+				}
+			}
+		})
+	</script>
+</html>

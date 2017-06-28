@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div @click.once="show2($event)">
+				组织冒泡
+				<button @click.stop="show1($event)">点击事件</button>
+			</div>
+			<input type="text" v-model="msg" @keyup.13="show3()" />
+			<input type="text" v-model="msg1" @keyup="show4($event)" />
+			<input type="text" v-model="msg2" @keyup.enter="show5()" />
+			<input type="text" v-model="msg3" @keyup.f1="show6()" />
+		</div>
+	</body>
+	<script type="text/javascript">
+		//自定义修饰一定要注意有效性
+		Vue.config.keyCodes.f1 = 112;
+		//阻止冒泡
+			/**
+			 * event.stopPropagation()
+			 * event.cancelBubble = true;
+			 * 
+			 * vue中封装了阻止冒泡  @click.stop
+			 * 	@click.stop="show1()"
+			 */
+		var  vw = new Vue({
+			el:"#app",
+			data:{
+				msg:"",
+				msg1:"",
+				msg2:"",
+				msg3:""
+			},
+			computed:{
+				
+			},
+			methods:{
+				show1(event){
+//					event.stopPropagation()
+//					event.cancelBubble = true;
+					alert(1);
+				},
+				show2(event){
+					
+					alert(2)
+				},
+				show3(){
+					alert(this.msg)
+				},
+				show4(event){
+					var keyCode = event.keyCode;
+					if(keyCode == 13){
+						alert(this.msg)
+					}
+				},
+				show5(){
+					alert(this.msg2)
+				},
+				show6(){
+					alert(this.msg3)
+				},
+			}
+		})
+	</script>
+</html>

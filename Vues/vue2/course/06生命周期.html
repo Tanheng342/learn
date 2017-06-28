@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../jslib/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{msg}}
+			<button @click="updateCom()">更新组件</button>
+			<button @click="destroyCom()">销毁组件</button>
+			
+			<ul>
+				<li v-for="item in list">{{item.title}}</li>
+			</ul>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+	<script type="text/javascript">
+		var  vw = new Vue({
+			el:"#app",
+			data:{
+				msg:"初始化",
+				list:[]
+			},
+			methods:{
+				updateCom(){
+					this.msg = "运行中";
+				},
+				destroyCom(){
+					this.$destroy();
+				}
+			},
+			beforeCreate(){
+				console.log("beforeCreate")
+				
+			},
+			created(){
+				console.log("created")
+			},
+			beforeMount(){
+				console.log("beforeMount")
+			},
+			mounted(){
+				console.log("mounted");
+				var url = "http://localhost:8000/";
+				this.$http.get(url).then((responseText)=>{
+//					console.log(responseText.body)
+					var data = JSON.parse(responseText.body);
+					console.log(data)
+					this.list = data;
+				},(err) => {
+					console.log(err)
+				})
+			},
+			beforeUpdate(){
+				console.log("beforeUpdate")
+			},
+			updated(){
+				console.log("updated")
+			},
+			beforeDestroy(){
+				console.log("beforeDestory")
+			},
+			destroyed(){
+				console.log("destoryed")
+			}
+		})
+	</script>
+</html>

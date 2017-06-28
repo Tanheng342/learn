@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<input type="text" v-model="msg"/>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * 监听数据变化  watch
+		 * 	1、 var vw = new Vue();
+		 * 		vw.$watch("监听哪一个属性"，function(newVal,oldVal){
+		 * 			console.log(newVal+"---"+oldVal)
+		 * 		})
+		 *  2、new Vue({
+		 * 		el:"#app",
+		 * 		data:{msg:"111"},
+		 * 		watch:{
+		 * 			监听哪个属性：function(newVal,oldVal){
+		 * 			console.log(newVal+"---"+oldVal)
+		 * 		}
+		 * 		}
+		 * })
+		 * 		着重考虑使用第二种方案
+		 */
+		var vw = new Vue({
+			el:"#app",
+			data:{
+				msg:"监听数据变化"
+			},
+			watch:{
+				msg:function(newVal,oldVal){
+					console.log(newVal+"---"+oldVal)
+				}
+			}
+		})
+		
+	</script>
+</html>

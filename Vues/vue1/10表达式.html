@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			{{num}}----{{num+1}} ---- {{num-1}}------{{num*2+1}}----{{num/3}}
+			<br />
+			<input v-model="msg" />
+			{{msg}}----{{msg.split("").reverse().join("*****")}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		/**
+		 * Vue 表达式采用的是双大括号
+		 * 表达式
+		 */
+		new Vue({
+			el:"#app",
+			data:{
+				num:"10000",
+				msg:"字符串翻转"
+			}
+		})
+	</script>
+</html>
